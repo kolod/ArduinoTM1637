@@ -1,7 +1,7 @@
 # SevenSegmentTM1637 Arduino Library
 
-* master&nbsp;&nbsp;[![Build Status](https://travis-ci.org/bremme/arduino-tm1637.svg?branch=master)](https://travis-ci.org/bremme/arduino-tm1637)
-* develop&nbsp;[![Build Status](https://travis-ci.org/bremme/arduino-tm1637.svg?branch=develop)](https://travis-ci.org/bremme/arduino-tm1637)
+[![PlatformIO Build](https://github.com/kolod/SevenSegmentTM1637/actions/workflows/platformio-build.yml/badge.svg)](https://github.com/kolod/SevenSegmentTM1637/actions/workflows/platformio-build.yml)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/kolod/library/SevenSegmentTM1637.svg)](https://registry.platformio.org/libraries/kolod/SevenSegmentTM1637)
 
 
 Arduino library for controlling a TM163x based 7-segment display module. These modules are sold under various names by various suppliers. For example:
@@ -26,7 +26,26 @@ They come in different sizes, colors and there is a clock (with a colon) and dec
 
 # Installation
 
+## Arduino IDE
+
 Like any other Arduino library this library is installed by copying the files into a directory on the Arduino IDE search path. Most common is to put all files in a director in `your sketch folder/libraries/SevenSegmentTM1637/`. See [installing additional Arduino libraries](https://www.arduino.cc/en/Guide/Libraries) for more information.
+
+## PlatformIO
+
+This library is available in the PlatformIO Registry. You can install it using:
+
+```bash
+# Using PlatformIO CLI
+pio pkg install --library "kolod/SevenSegmentTM1637"
+
+# Or add to your platformio.ini
+[env:your_board]
+platform = ...
+board = ...
+framework = arduino
+lib_deps = 
+    kolod/SevenSegmentTM1637
+```
 
 # Usage
 
@@ -101,6 +120,20 @@ For more extended information on what arguments all above functions accept and r
 
 # Changelog
 
++ 16-07-2025 version 1.1.2
+  + Added PlatformIO support
+    + Added `library.json` for PlatformIO compatibility
+    + Library now supports both Arduino IDE and PlatformIO workflows
+    + Updated maintainer information to Oleksandr Kolodkin
+  + Improved build automation
+    + Added GitHub Actions workflow for automated testing
+    + Multi-platform testing across Arduino AVR, ESP8266, ESP32, and STM32
+    + Automated library validation and publishing to PlatformIO Registry
+    + All examples are now tested automatically on every pull request
+  + Code quality improvements
+    + Fixed C++ compatibility issues in examples
+    + Added const correctness for better compiler compatibility
+    + Resolved function overloading ambiguity in FunPrintAll example
 + 09-07-2020 version 1.1.1
   + Bug fixes
     + fixed a typo in SevenSegmentFun.h file
