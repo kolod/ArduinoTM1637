@@ -5,6 +5,8 @@ on:
     branches: [ main, develop, github-actions ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -218,3 +220,40 @@ jobs:
         else
           echo "❌ library.properties missing"
         fi
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build, library-validation]
+    if: github.event_name == 'release' && github.event.action == 'published'
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade platformio
+
+    - name: Login to PlatformIO Registry
+      run: |
+        pio account login --username ${{ secrets.PLATFORMIO_USERNAME }} --password ${{ secrets.PLATFORMIO_PASSWORD }}
+      env:
+        PLATFORMIO_USERNAME: ${{ secrets.PLATFORMIO_USERNAME }}
+        PLATFORMIO_PASSWORD: ${{ secrets.PLATFORMIO_PASSWORD }}
+
+    - name: Publish to PlatformIO Registry
+      run: |
+        echo "📦 Publishing library to PlatformIO Registry..."
+        pio pkg publish --type library
+        echo "✅ Library published successfully!"
+
+    - name: Update version tag
+      run: |
+        echo "🏷️ Published version: ${{ github.event.release.tag_name }}"
+        echo "📋 Release notes: ${{ github.event.release.body }}"
