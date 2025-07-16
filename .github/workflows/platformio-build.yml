@@ -75,7 +75,7 @@ jobs:
 
     - name: Test Basic Example
       run: |
-        mkdir -p test_project/basic
+        mkdir -p test_project/basic/src
         cp examples/Basic/Basic.ino test_project/basic/src/main.cpp
         cd test_project/basic
         cat > platformio.ini << EOF
@@ -90,7 +90,7 @@ jobs:
 
     - name: Test PrintNumber Example
       run: |
-        mkdir -p test_project/printnumber
+        mkdir -p test_project/printnumber/src
         cp examples/PrintNumber/PrintNumber.ino test_project/printnumber/src/main.cpp
         cd test_project/printnumber
         cat > platformio.ini << EOF
@@ -105,7 +105,7 @@ jobs:
 
     - name: Test SerialPrint Example
       run: |
-        mkdir -p test_project/serialprint
+        mkdir -p test_project/serialprint/src
         cp examples/SerialPrint/SerialPrint.ino test_project/serialprint/src/main.cpp
         cd test_project/serialprint
         cat > platformio.ini << EOF
@@ -120,7 +120,7 @@ jobs:
 
     - name: Test ExtClock Example
       run: |
-        mkdir -p test_project/extclock
+        mkdir -p test_project/extclock/src
         cp examples/ExtClock/ExtClock.ino test_project/extclock/src/main.cpp
         cd test_project/extclock
         cat > platformio.ini << EOF
@@ -135,7 +135,7 @@ jobs:
 
     - name: Test FunPrintAll Example
       run: |
-        mkdir -p test_project/funprintall
+        mkdir -p test_project/funprintall/src
         cp examples/FunPrintAll/FunPrintAll.ino test_project/funprintall/src/main.cpp
         cd test_project/funprintall
         cat > platformio.ini << EOF
@@ -150,7 +150,7 @@ jobs:
 
     - name: Test LowLevel Example
       run: |
-        mkdir -p test_project/lowlevel
+        mkdir -p test_project/lowlevel/src
         cp examples/LowLevel/LowLevel.ino test_project/lowlevel/src/main.cpp
         cd test_project/lowlevel
         cat > platformio.ini << EOF
