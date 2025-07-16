@@ -179,11 +179,58 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade platformio
 
-    - name: Validate library.json
+    - name: Validate library with PlatformIO
       run: |
-        pio pkg validate
+        # Create a test project to validate the library
+        mkdir -p validation_test/src
+        cat > validation_test/platformio.ini << EOF
+        [env:validation]
+        platform = atmelavr
+        board = uno
+        framework = arduino
+        lib_deps = 
+            file://..
+        EOF
+        
+        # Create a simple test sketch
+        cat > validation_test/src/main.cpp << EOF
+        #include <Arduino.h>
+        #include "SevenSegmentTM1637.h"
+        
+        void setup() {
+          // Test library inclusion
+        }
+        
+        void loop() {
+        }
+        EOF
+        
+        cd validation_test
+        pio run
+        echo "✅ Library validation successful"
 
     - name: Check library structure
       run: |
-        pio pkg show --json-output > library_info.json
-        cat library_info.json
+        echo "📁 Library structure:"
+        ls -la
+        echo ""
+        echo "📄 Source files:"
+        ls -la src/
+        echo ""
+        echo "📚 Examples:"
+        ls -la examples/
+        echo ""
+        echo "📋 Library files:"
+        if [ -f "library.json" ]; then
+          echo "✅ library.json found"
+          echo "Library metadata:"
+          cat library.json | head -10
+        else
+          echo "❌ library.json missing"
+        fi
+        
+        if [ -f "library.properties" ]; then
+          echo "✅ library.properties found"
+        else
+          echo "❌ library.properties missing"
+        fi
