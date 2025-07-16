@@ -41,16 +41,6 @@ void setup() {
   Serial.println(F("also make sure to set the line ending to Newline (\\n)"));
 };
 
-// run loop (forever)
-void loop() {
-  // if received new serial data, print to display
-  if ( receivedSerialString() ) {
-    display.print(serialBuffer);    // Print received serial data to display
-    Serial.print(F("Echo:\t"));     // Echo serial data back to Serial Monitor
-    Serial.println(serialBuffer);
-  };
-};
-
 // Read in bytes from Serial Monitor and return true is ether the serialBuffer is full or a Newline character is received
 bool receivedSerialString() {
   static unsigned int i=0;          // init static counter to keep track of count
@@ -76,4 +66,14 @@ bool receivedSerialString() {
     i++;                            // increase counter
   };
   return false;                     // default RETURN false
+};
+
+// run loop (forever)
+void loop() {
+  // if received new serial data, print to display
+  if ( receivedSerialString() ) {
+    display.print(serialBuffer);    // Print received serial data to display
+    Serial.print(F("Echo:\t"));     // Echo serial data back to Serial Monitor
+    Serial.println(serialBuffer);
+  };
 };
