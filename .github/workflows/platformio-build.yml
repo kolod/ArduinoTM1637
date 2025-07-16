@@ -12,22 +12,6 @@ jobs:
     
     strategy:
       matrix:
-        platform:
-          - "atmelavr"
-          - "espressif8266" 
-          - "espressif32"
-          - "ststm32"
-        board:
-          - platform: "atmelavr"
-            board: "uno"
-          - platform: "atmelavr" 
-            board: "nano"
-          - platform: "espressif8266"
-            board: "nodemcuv2"
-          - platform: "espressif32"
-            board: "esp32dev"
-          - platform: "ststm32"
-            board: "nucleo_f401re"
         include:
           - platform: "atmelavr"
             board: "uno"
