@@ -1,0 +1,189 @@
+name: PlatformIO Build
+
+on:
+  push:
+    branches: [ main, develop, github-actions ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        platform:
+          - "atmelavr"
+          - "espressif8266" 
+          - "espressif32"
+          - "ststm32"
+        board:
+          - platform: "atmelavr"
+            board: "uno"
+          - platform: "atmelavr" 
+            board: "nano"
+          - platform: "espressif8266"
+            board: "nodemcuv2"
+          - platform: "espressif32"
+            board: "esp32dev"
+          - platform: "ststm32"
+            board: "nucleo_f401re"
+        include:
+          - platform: "atmelavr"
+            board: "uno"
+          - platform: "atmelavr"
+            board: "nano"
+          - platform: "espressif8266"
+            board: "nodemcuv2"
+          - platform: "espressif32"
+            board: "esp32dev"
+          - platform: "ststm32"
+            board: "nucleo_f401re"
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Cache pip
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Cache PlatformIO
+      uses: actions/cache@v4
+      with:
+        path: ~/.platformio
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade platformio
+
+    - name: Create test project structure
+      run: |
+        mkdir -p test_project/lib/SevenSegmentTM1637
+        cp -r src/* test_project/lib/SevenSegmentTM1637/
+        cp library.json test_project/lib/SevenSegmentTM1637/
+
+    - name: Test Basic Example
+      run: |
+        mkdir -p test_project/basic
+        cp examples/Basic/Basic.ino test_project/basic/src/main.cpp
+        cd test_project/basic
+        cat > platformio.ini << EOF
+        [env:test]
+        platform = ${{ matrix.platform }}
+        board = ${{ matrix.board }}
+        framework = arduino
+        lib_deps = 
+            file://../lib/SevenSegmentTM1637
+        EOF
+        pio run
+
+    - name: Test PrintNumber Example
+      run: |
+        mkdir -p test_project/printnumber
+        cp examples/PrintNumber/PrintNumber.ino test_project/printnumber/src/main.cpp
+        cd test_project/printnumber
+        cat > platformio.ini << EOF
+        [env:test]
+        platform = ${{ matrix.platform }}
+        board = ${{ matrix.board }}
+        framework = arduino
+        lib_deps = 
+            file://../lib/SevenSegmentTM1637
+        EOF
+        pio run
+
+    - name: Test SerialPrint Example
+      run: |
+        mkdir -p test_project/serialprint
+        cp examples/SerialPrint/SerialPrint.ino test_project/serialprint/src/main.cpp
+        cd test_project/serialprint
+        cat > platformio.ini << EOF
+        [env:test]
+        platform = ${{ matrix.platform }}
+        board = ${{ matrix.board }}
+        framework = arduino
+        lib_deps = 
+            file://../lib/SevenSegmentTM1637
+        EOF
+        pio run
+
+    - name: Test ExtClock Example
+      run: |
+        mkdir -p test_project/extclock
+        cp examples/ExtClock/ExtClock.ino test_project/extclock/src/main.cpp
+        cd test_project/extclock
+        cat > platformio.ini << EOF
+        [env:test]
+        platform = ${{ matrix.platform }}
+        board = ${{ matrix.board }}
+        framework = arduino
+        lib_deps = 
+            file://../lib/SevenSegmentTM1637
+        EOF
+        pio run
+
+    - name: Test FunPrintAll Example
+      run: |
+        mkdir -p test_project/funprintall
+        cp examples/FunPrintAll/FunPrintAll.ino test_project/funprintall/src/main.cpp
+        cd test_project/funprintall
+        cat > platformio.ini << EOF
+        [env:test]
+        platform = ${{ matrix.platform }}
+        board = ${{ matrix.board }}
+        framework = arduino
+        lib_deps = 
+            file://../lib/SevenSegmentTM1637
+        EOF
+        pio run
+
+    - name: Test LowLevel Example
+      run: |
+        mkdir -p test_project/lowlevel
+        cp examples/LowLevel/LowLevel.ino test_project/lowlevel/src/main.cpp
+        cd test_project/lowlevel
+        cat > platformio.ini << EOF
+        [env:test]
+        platform = ${{ matrix.platform }}
+        board = ${{ matrix.board }}
+        framework = arduino
+        lib_deps = 
+            file://../lib/SevenSegmentTM1637
+        EOF
+        pio run
+
+  library-validation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade platformio
+
+    - name: Validate library.json
+      run: |
+        pio pkg validate
+
+    - name: Check library structure
+      run: |
+        pio pkg show --json-output > library_info.json
+        cat library_info.json
