@@ -53,7 +53,7 @@ void audioVolume() {
   }
 
     // maybe try another symbol instead of default | |
-    byte symbol = display.encode((byte)0);
+    byte symbol = display.encode('0');  // Use character '0' instead of byte 0
     bool leftToRight = false;   // print the other direction
 
 
@@ -96,7 +96,7 @@ void equalizer() {
     }
 }
 
-void introDuceNextDemo(char* str) {
+void introDuceNextDemo(const char* str) {
   display.print(str);
   delay(500);
 }
