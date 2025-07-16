@@ -1,7 +1,7 @@
 {
-  "name": "SevenSegmentTM1637",
+  "name": "ArduinoSevenSegmentTM1637",
   "version": "1.1.2",
-  "description": "Library for using a 4 digit seven segment display with TM1636 or TM1637 driver IC",
+  "description": "Modern Arduino library for 4 digit seven segment display with TM1636/TM1637 driver IC, Arduino IDE and PlatformIO support",
   "keywords": [
     "display",
     "seven-segment",
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/kolod/SevenSegmentTM1637.git"
+    "url": "https://github.com/kolod/ArduinoTM1637.git"
   },
   "authors": [
     {
@@ -28,7 +28,7 @@
     }
   ],
   "license": "GPL-2.0",
-  "homepage": "https://github.com/kolod/SevenSegmentTM1637",
+  "homepage": "https://github.com/kolod/ArduinoTM1637",
   "frameworks": "arduino",
   "platforms": "*",
   "headers": "SevenSegmentTM1637.h",

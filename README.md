@@ -1,14 +1,13 @@
 # SevenSegmentTM1637 Arduino Library
 
-* master&nbsp;&nbsp;[![Build Status](https://travis-ci.org/bremme/arduino-tm1637.svg?branch=master)](https://travis-ci.org/bremme/arduino-tm1637)
-* develop&nbsp;[![Build Status](https://travis-ci.org/bremme/arduino-tm1637.svg?branch=develop)](https://travis-ci.org/bremme/arduino-tm1637)
+[![PlatformIO Build](https://github.com/kolod/ArduinoTM1637/actions/workflows/platformio-build.yml/badge.svg)](https://github.com/kolod/ArduinoTM1637/actions/workflows/platformio-build.yml)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/kolod/library/ArduinoTM1637.svg)](https://registry.platformio.org/libraries/kolod/ArduinoTM1637)
 
 
 Arduino library for controlling a TM163x based 7-segment display module. These modules are sold under various names by various suppliers. For example:
 
-* [Seed Studio: Grove 4 digit display](http://www.seeedstudio.com/depot/grove-4digit-display-p-1198.html)
+* [Seed Studio: Grove 4 digit display](https://www.seeedstudio.com/Grove-4-Digit-Display.html)
 * [Ebay: 4 Bits Digital Tube LED TM1637](http://www.ebay.com/sch/i.html?_odkw=4+Bits+Digital+Tube+LED&_osacat=0&_from=R40&_trksid=p2045573.m570.l1313.TR0.TRC0.H0.X4+Bits+Digital+Tube+LED+TM1637.TRS0&_nkw=4+Bits+Digital+Tube+LED+TM1637&_sacat=0)
-* [DealExtreme: LED 4-Digit Display Module](http://www.dx.com/s/TM1637)
 
 They come in different sizes, colors and there is a clock (with a colon) and decimal (with four decimal dots) display variant. But the most common one is the red 0.36" clock version, this is also the cheapest one (you can get those for about $1.50). I've written this library using the above module, if I get my hands on any of the other variants I might add some specific code, for example to print floats on the decimal version.
 
@@ -27,6 +26,23 @@ They come in different sizes, colors and there is a clock (with a colon) and dec
 # Installation
 
 Like any other Arduino library this library is installed by copying the files into a directory on the Arduino IDE search path. Most common is to put all files in a director in `your sketch folder/libraries/SevenSegmentTM1637/`. See [installing additional Arduino libraries](https://www.arduino.cc/en/Guide/Libraries) for more information.
+
+## PlatformIO
+
+This library is available in the PlatformIO Registry. You can install it using:
+
+```bash
+# Using PlatformIO CLI
+pio pkg install --library "kolod/ArduinoSevenSegmentTM1637"
+
+# Or add to your platformio.ini
+[env:your_board]
+platform = ...
+board = ...
+framework = arduino
+lib_deps = 
+    kolod/ArduinoSevenSegmentTM1637
+```
 
 # Usage
 
@@ -101,6 +117,21 @@ For more extended information on what arguments all above functions accept and r
 
 # Changelog
 
++ 16-07-2025 version 1.1.2
+  + Added PlatformIO support
+    + Added `library.json` for PlatformIO compatibility
+    + Library now supports both Arduino IDE and PlatformIO workflows
+    + Updated maintainer information to Oleksandr Kolodkin
+    + Library name changed to ArduinoSevenSegmentTM1637
+  + Improved build automation
+    + Added GitHub Actions workflow for automated testing
+    + Multi-platform testing across Arduino AVR, ESP8266, ESP32, and STM32
+    + Automated library validation and publishing to PlatformIO Registry
+    + All examples are now tested automatically on every pull request
+  + Code quality improvements
+    + Fixed C++ compatibility issues in examples
+    + Added const correctness for better compiler compatibility
+    + Resolved function overloading ambiguity in FunPrintAll example
 + 09-07-2020 version 1.1.1
   + Bug fixes
     + fixed a typo in SevenSegmentFun.h file
