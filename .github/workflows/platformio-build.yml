@@ -16,7 +16,7 @@ jobs:
           - platform: "atmelavr"
             board: "uno"
           - platform: "atmelavr"
-            board: "nano"
+            board: "nanoatmega328"
           - platform: "espressif8266"
             board: "nodemcuv2"
           - platform: "espressif32"
