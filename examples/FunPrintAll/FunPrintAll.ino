@@ -38,43 +38,6 @@ void setup() {
   delay(1000);                // wait 1000 ms
 };
 
-// run loop (forever)
-void loop() {
-
-  // vertical level (e.g. audio volume)
-  introDuceNextDemo("AUDIO VOLUME DEMO");
-  audioVolume();
-
-  // bouncing ball
-  introDuceNextDemo("BOUNCING BALL DEMO");
-  unsigned int numMoves = 100; unsigned int timeDelay = 100;
-  display.bouncingBall(numMoves, timeDelay);
-
-  // scrolling text
-  introDuceNextDemo("SCROLLING TEXT DEMO");
-  byte repeats = 2;
-  display.scrollingText("ARDUINO TM1637 FUN", repeats);
-
-  // nightrider
-  introDuceNextDemo("REMEMBER KIT? NIGHTRIDER DEMO");
-  repeats = 4;
-  display.nightrider(repeats);
-
-  // snake
-  introDuceNextDemo("SNAKE DEMO");
-  display.snake(repeats);
-
-  // horizontal level (e.g equalizer)
-  introDuceNextDemo("EQUALIZER DEMO");
-  equalizer();
-
-  // bomb timer
-  introDuceNextDemo("GET READY FOR THE BOMB");
-  byte hours = 5; byte min = 16; unsigned int speed = 10000;
-  display.bombTimer(hours, min, speed, " RUN ");
-  delay(1000);;
-};
-
 // Demo for displaying a vertical level, for example audio volume, battery charge etc.
 void audioVolume() {
 
@@ -137,3 +100,40 @@ void introDuceNextDemo(char* str) {
   display.print(str);
   delay(500);
 }
+
+// run loop (forever)
+void loop() {
+
+  // vertical level (e.g. audio volume)
+  introDuceNextDemo("AUDIO VOLUME DEMO");
+  audioVolume();
+
+  // bouncing ball
+  introDuceNextDemo("BOUNCING BALL DEMO");
+  unsigned int numMoves = 100; unsigned int timeDelay = 100;
+  display.bouncingBall(numMoves, timeDelay);
+
+  // scrolling text
+  introDuceNextDemo("SCROLLING TEXT DEMO");
+  byte repeats = 2;
+  display.scrollingText("ARDUINO TM1637 FUN", repeats);
+
+  // nightrider
+  introDuceNextDemo("REMEMBER KIT? NIGHTRIDER DEMO");
+  repeats = 4;
+  display.nightrider(repeats);
+
+  // snake
+  introDuceNextDemo("SNAKE DEMO");
+  display.snake(repeats);
+
+  // horizontal level (e.g equalizer)
+  introDuceNextDemo("EQUALIZER DEMO");
+  equalizer();
+
+  // bomb timer
+  introDuceNextDemo("GET READY FOR THE BOMB");
+  byte hours = 5; byte min = 16; unsigned int speed = 10000;
+  display.bombTimer(hours, min, speed, " RUN ");
+  delay(1000);;
+};
